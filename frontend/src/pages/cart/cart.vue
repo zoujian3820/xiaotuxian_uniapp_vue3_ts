@@ -1,8 +1,7 @@
-<template>
-  <div class="cart">cart</div>
-</template>
-
-<script lang="ts" setup>
+<script setup lang="ts">
+import CartMain from './components/CartMain.vue'
 </script>
 
-<style lang="scss" scoped></style>
+<template>
+  <CartMain />
+</template>

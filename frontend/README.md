@@ -263,6 +263,44 @@ insert_final_newline = true
 trim_trailing_whitespace = false
 ```
 
+使用 `fontmin` 压缩提取字体
+
+https://github.com/ecomfe/fontmin?tab=readme-ov-file
+
+https://gitcode.com/ecomfe/fontmin/overview
+
+```bash
+yarn add -D fontmin
+```
+提取脚本
+```js
+const Fontmin = require("fontmin");
+
+// 字体文件的位置
+const filePath = "./熊猫字体.ttf";
+// font-family 的名称，我们将在之后使用该名称来表示使用该字体
+const fontName = "mz-font";
+// 需要抽取的文字有哪些
+const extractText = "我是提取的字体，只有我生效";
+// 生成文件导出的文件夹
+const exportPath = "./fonts";
+
+const fontmin = new Fontmin()
+  .src(filePath)
+  .use(Fontmin.glyph({ text: extractText, hinting: false }))
+  .use(Fontmin.ttf2eot())
+  .use(Fontmin.ttf2svg())
+  .use(Fontmin.ttf2woff({ deflate: true }))
+  // 生成css、 base64: 注入base64数据：application/x-font-ttf;（带css的gzip字体）。
+  .use(Fontmin.css({ fontFamily: fontName, base64: true }))
+  .dest(exportPath);
+
+fontmin.run();
+
+```
+
+
+
 2. 运行程序
 
 ```shell

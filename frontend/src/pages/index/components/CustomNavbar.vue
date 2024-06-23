@@ -1,5 +1,5 @@
 <template>
-  <view class="navbar" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
+  <view class="navbar" :style="{ paddingTop: safeAreaInsets?.top + 'px' }" @touchmove.stop.prevent>
     <!-- logo文字 -->
     <view class="logo">
       <image class="logo-image" src="@/static/images/logo.png"></image>

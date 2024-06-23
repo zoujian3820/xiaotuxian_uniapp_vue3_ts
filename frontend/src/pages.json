@@ -25,7 +25,9 @@
     {
       "path": "pages/my/my",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom",
+        "navigationBarTextStyle": "white"
       }
     },
     {
@@ -35,9 +37,15 @@
       }
     },
     {
+      "path": "pages/cart/cart2",
+      "style": {
+        "navigationBarTitleText": "购物车"
+      }
+    },
+    {
       "path": "pages/category/category",
       "style": {
-        "navigationBarTitleText": "分类"
+        "navigationBarTitleText": "商品分类"
       }
     },
     {
@@ -45,11 +53,25 @@
       "style": {
         "navigationBarTitleText": "登录"
       }
+    },
+    {
+      "path": "pages/hot/hot",
+      "style": {
+        "navigationBarTitleText": "热门推荐",
+        "navigationBarBackgroundColor": "#27ba9b",
+        "navigationBarTextStyle": "white"
+      }
+    },
+    {
+      "path": "pages/goods/goods",
+      "style": {
+        "navigationBarTitleText": "商品详情"
+      }
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "",
     "navigationBarBackgroundColor": "#27ba9b",
     "backgroundColor": "#F8F8F8"
   },
@@ -82,5 +104,79 @@
         "text": "我的"
       }
     ]
+  },
+  // 配置分包的加载规则
+  "subPackages": [
+    {
+      "root": "pagesMember",
+      "pages": [
+        {
+          "path": "settings/settings",
+          "style": {
+            "navigationBarTitleText": "设置"
+          }
+        },
+        {
+          "path": "profile/profile",
+          "style": {
+            "navigationBarTitleText": "个人信息",
+            "navigationStyle": "custom",
+            "navigationBarTextStyle": "white"
+          }
+        },
+        {
+          "path": "address/address",
+          "style": {
+            "navigationBarTitleText": "地址管理"
+          }
+        },
+        {
+          "path": "address-form/address-form",
+          "style": {
+            "navigationBarTitleText": ""
+          }
+        }
+      ]
+    },
+    {
+      "root": "pagesOrder",
+      "pages": [
+        {
+          "path": "create/create",
+          "style": {
+            "navigationBarTitleText": "填写订单"
+          }
+        },
+        {
+          "path": "detail/detail",
+          "style": {
+            "navigationBarTitleText": "订单详情",
+            "navigationStyle": "custom"
+          }
+        },
+        {
+          "path": "payment/payment",
+          "style": {
+            "navigationBarTitleText": "支付结果"
+          }
+        },
+        {
+          "path": "list/list",
+          "style": {
+            "navigationBarTitleText": "订单列表"
+          }
+        }
+      ]
+    }
+  ],
+  // 分包预下载规则（只有微信小程序生效）：
+  // 配置分包关联的主包页面，当访问到关联的主包页面时，会提前下载分包中的页面
+  "preloadRule": {
+    // 访问到 pages/my/my 页面时，就会下载分包 pagesMember 中的所有页面
+    "pages/my/my": {
+      // all: 所有网络下都预加载  wifi: 仅在wifi网络下预加载
+      "network": "all",
+      "packages": ["pagesMember"]
+    }
   }
 }
