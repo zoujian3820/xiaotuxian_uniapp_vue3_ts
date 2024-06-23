@@ -114,7 +114,7 @@
 </template>
 
 <style lang="scss">
-/* #ifdef H5 */
+/* #ifdef H5 || APP-PLUS*/
 /* 修复 H5 端骨架屏样式异常 */
 /* 原因：H5 端样式自动开启 scoped 隔离，导致骨架屏的基础样式被隔离 */
 @import '../styles/category.scss';
@@ -127,7 +127,6 @@
 }
 
 /* #endif */
-
 .sk-transparent {
   color: transparent !important;
 }

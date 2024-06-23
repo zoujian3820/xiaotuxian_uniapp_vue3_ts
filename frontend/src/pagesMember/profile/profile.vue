@@ -24,36 +24,44 @@ const memberStore = useMemberStore()
 const onAvatarChange = () => {
   // 调用拍照/选择图片
 
-  // uni.chooseMedia({
-  //   // 文件个数
-  //   count: 1,
-  //   // 文件类型
-  //   mediaType: ['image'],
-  //   success: (res) => {
-  //     // 本地路径
-  //     const { tempFilePath } = res.tempFiles[0]
-  //     console.log(res.tempFiles, 'PPPPPP')
-  //     // 文件上传
-  //     uni.uploadFile({
-  //       url: '/member/profile/avatar',
-  //       name: 'file',
-  //       filePath: tempFilePath,
-  //       success: (res) => {
-  //         if (res.statusCode === 200) {
-  //           const avatar = JSON.parse(res.data).result.avatar
-  //           // 个人信息页数据更新
-  //           profile.value!.avatar = avatar
-  //           // Store头像更新
-  //           memberStore.profile!.avatar = avatar
-  //           uni.showToast({ icon: 'success', title: '更新成功' })
-  //         } else {
-  //           uni.showToast({ icon: 'error', title: '出现错误' })
-  //         }
-  //       },
-  //     })
-  //   }
-  // })
+  const uploadFileFn = (filePath: string) => {
+    // 文件上传
+    uni.uploadFile({
+      url: '/member/profile/avatar',
+      name: 'file',
+      filePath,
+      success: (res) => {
+        if (res.statusCode === 200) {
+          const avatar = JSON.parse(res.data).result.avatar
+          // 个人信息页数据更新
+          profile.value!.avatar = avatar
+          // Store头像更新
+          memberStore.profile!.avatar = avatar
+          uni.showToast({ icon: 'success', title: '更新成功' })
+        } else {
+          uni.showToast({ icon: 'error', title: '出现错误' })
+        }
+      }
+    })
+  }
 
+  // #ifdef MP-WEIXIN
+  uni.chooseMedia({
+    // 文件个数
+    count: 1,
+    // 文件类型
+    mediaType: ['image'],
+    success: (res) => {
+      // 本地路径
+      const { tempFilePath } = res.tempFiles[0]
+      // console.log(res.tempFiles, 'PPPPPP')
+      // 文件上传
+      uploadFileFn(tempFilePath)
+    }
+  })
+  // #endif
+
+  // #ifndef MP-WEIXIN
   uni.chooseImage({
     count: 1, //默认9
     sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
@@ -61,25 +69,10 @@ const onAvatarChange = () => {
     success: function (res) {
       const tempFilePath = res.tempFilePaths[0]
       // 文件上传
-      uni.uploadFile({
-        url: '/member/profile/avatar',
-        name: 'file',
-        filePath: tempFilePath,
-        success: (res) => {
-          if (res.statusCode === 200) {
-            const avatar = JSON.parse(res.data).result.avatar
-            // 个人信息页数据更新
-            profile.value!.avatar = avatar
-            // Store头像更新
-            memberStore.profile!.avatar = avatar
-            uni.showToast({ icon: 'success', title: '更新成功' })
-          } else {
-            uni.showToast({ icon: 'error', title: '出现错误' })
-          }
-        },
-      })
+      uploadFileFn(tempFilePath)
     }
   });
+  // #endif
 }
 // 修改性别
 const onGenderChange: UniHelper.RadioGroupOnChange = (ev) => {

@@ -261,6 +261,11 @@ const { guessRef, onScrolltolower } = useGuessList()
 
     .navigator {
       display: flex;
+      /* #ifdef H5 */
+      & > a.navigator-wrap{
+        display: flex;
+      }
+      /* #endif */
     }
 
     .checkbox {

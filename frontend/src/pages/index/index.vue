@@ -1,5 +1,5 @@
 <template>
-<view class="page-content">
+<!-- <view class="page-content"> -->
   <!-- 自定义导航栏 -->
   <CustomNavbar />
   <scroll-view scroll-y refresher-enabled @scrolltolower="onScrolltolower" @refresherpulling="onRefresherpulling"
@@ -21,7 +21,7 @@
     </template>
 
   </scroll-view>
-</view>
+<!-- </view> -->
 </template>
 
 <script setup lang="ts">
@@ -99,6 +99,7 @@ onLoad(async () => {
 })
 </script>
 
+<!--
 <style lang="scss">
 page {
   height: 100%;
@@ -123,3 +124,20 @@ page {
   flex: 1;
 }
 </style>
+-->
+
+<style lang="scss">
+/* #ifdef APP-PLUS */
+#app,
+/* #endif */
+page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.scroll-view {
+  flex: 1;
+}
+</style>
+
